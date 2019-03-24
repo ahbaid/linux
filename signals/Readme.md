@@ -41,9 +41,9 @@ void signal_handler(int in_signal) {
 // ----------------------------------------------------------------
 // }}}
 
-// {{{ int main(void)
+// {{{ void main()
 // ----------------------------------------------------------------
-int main(void) {
+void main() {
 
    // Get the process id (pid) and display it
    printf("\nPID[%d] parent(%d) waiting for signals, ready...\n",getpid(),getppid());
@@ -57,12 +57,11 @@ int main(void) {
     sleep(1);
    }
 
-   return 0;
-
 }
 // ----------------------------------------------------------------
 // }}}
 ```
+
 ### Makefile
 ```
 CC=gcc
