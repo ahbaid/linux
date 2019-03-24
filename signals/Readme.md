@@ -18,7 +18,9 @@ $ kill -l
 63) SIGRTMAX-1  64) SIGRTMAX
 ~~~~
 
-## Compile signalhandler
+## Build signalhandler
+
+### signalhandler.c
 ```C
 // Author: Ahbaid Gaffoor
 // Date:   Sunday 24th March 2019
@@ -47,7 +49,7 @@ int main(void) {
    printf("\nPID[%d] parent(%d) waiting for signals, ready...\n",getpid(),getppid());
 
    if (signal(SIGINT, signal_handler) == SIG_ERR) {
-      printf("\ncan't catch SIGINT\n");
+      printf("\nCannot catch SIGINT\n");
    }
 
    // Infinite loop
@@ -61,13 +63,15 @@ int main(void) {
 // ----------------------------------------------------------------
 // }}}
 ```
-~~~~
-$ ls
-makefile  signalhandler.c
-$ cat makefile
+### Makefile
+```
 CC=gcc
 signalhandler: signalhandler.c
         $(CC) -o signalhandler signalhandler.c
+```
+
+### make
+~~~~
 $ make
 gcc -o signalhandler signalhandler.c
 $ ls

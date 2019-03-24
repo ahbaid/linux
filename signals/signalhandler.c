@@ -25,7 +25,7 @@ int main(void) {
    printf("\nPID[%d] parent(%d) waiting for signals, ready...\n",getpid(),getppid());
 
    if (signal(SIGINT, signal_handler) == SIG_ERR) {
-      printf("\ncan't catch SIGINT\n");
+      printf("\nCannot catch SIGINT\n");
    }
 
    // Infinite loop
