@@ -81,29 +81,94 @@ $
 ~~~~
 ### Session 2
 ~~~~
-$ ps -ef|grep signalhandler | grep -v grep
-ahbaidg   8729  8710  0 14:55 pts/9    00:00:00 ./signalhandler
 $ sleep 3; kill -SIGHUP 8729
 ~~~~
 
-## SIGHUP - 1
+## SIGINT - 2
 ### Session 1
 ~~~~
 $ ./signalhandler
 
-$ 
+PID[8880] parent(8710) waiting for signals, ready...
+Received Signal[2]....
+
 ~~~~
 ### Session 2
 ~~~~
+$ ps -ef|grep signalhandler | grep -v grep
+ahbaidg   8880  8710  0 15:01 pts/9    00:00:00 ./signalhandler
+$ sleep 3; kill -SIGINT 8880
+$ ps -ef|grep signalhandler | grep -v grep
+ahbaidg   8880  8710  0 15:01 pts/9    00:00:00 ./signalhandler
 ~~~~
 
-## SIGHUP - 1
+## SIGQUIT - 3
 ### Session 1
 ~~~~
 $ ./signalhandler
 
+PID[8880] parent(8710) waiting for signals, ready...
+Received Signal[2]....
+Quit (core dumped)
 $ 
 ~~~~
 ### Session 2
 ~~~~
+$ sleep 3; kill -SIGQUIT 8880
+~~~~
+
+## SIGKILL - 9
+### Session 1
+~~~~
+$ ./signalhandler
+
+PID[8941] parent(8710) waiting for signals, ready...
+Killed
+$ 
+~~~~
+### Session 2
+~~~~
+$ sleep 3; kill -SIGKILL 8941
+~~~~
+
+## SIGALRM - 14
+### Session 1
+~~~~
+$ ./signalhandler
+
+PID[8983] parent(8710) waiting for signals, ready...
+Alarm clock
+$ 
+~~~~
+### Session 2
+~~~~
+$ sleep 3; kill -SIGALRM 8983
+~~~~
+
+## SIGTERM - 15
+### Session 1
+~~~~
+$ ./signalhandler
+
+PID[9016] parent(8710) waiting for signals, ready...
+Terminated
+$ 
+~~~~
+### Session 2
+~~~~
+$ sleep 3; kill -SIGTERM 9016
+~~~~
+
+## SIGSYS - 31
+### Session 1
+~~~~
+$ ./signalhandler
+
+PID[9046] parent(8710) waiting for signals, ready...
+Bad system call (core dumped)
+$
+~~~~
+### Session 2
+~~~~
+$ sleep 3; kill -SIGSYS 9046
 ~~~~
