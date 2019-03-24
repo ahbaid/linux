@@ -17,9 +17,9 @@ void signal_handler(int in_signal) {
 // ----------------------------------------------------------------
 // }}}
 
-// {{{ int main(void)
+// {{{ void main()
 // ----------------------------------------------------------------
-int main(void) {
+void main() {
 
    // Get the process id (pid) and display it
    printf("\nPID[%d] parent(%d) waiting for signals, ready...\n",getpid(),getppid());
@@ -32,8 +32,6 @@ int main(void) {
    while(1) {
     sleep(1);
    }
-
-   return 0;
 
 }
 // ----------------------------------------------------------------
