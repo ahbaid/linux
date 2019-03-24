@@ -22,7 +22,7 @@ void signal_handler(int in_signal) {
 int main(void) {
 
    // Get the process id (pid) and display it
-   printf("\nPID[%d] waiting for signals, ready...\n",getpid());
+   printf("\nPID[%d] parent(%d) waiting for signals, ready...\n",getpid(),getppid());
 
    if (signal(SIGINT, signal_handler) == SIG_ERR) {
       printf("\ncan't catch SIGINT\n");

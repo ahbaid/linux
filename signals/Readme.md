@@ -1,0 +1,109 @@
+# Handling Signals
+
+## Signals
+~~~~
+$ kill -l
+ 1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL       5) SIGTRAP
+ 6) SIGABRT      7) SIGBUS       8) SIGFPE       9) SIGKILL     10) SIGUSR1
+11) SIGSEGV     12) SIGUSR2     13) SIGPIPE     14) SIGALRM     15) SIGTERM
+16) SIGSTKFLT   17) SIGCHLD     18) SIGCONT     19) SIGSTOP     20) SIGTSTP
+21) SIGTTIN     22) SIGTTOU     23) SIGURG      24) SIGXCPU     25) SIGXFSZ
+26) SIGVTALRM   27) SIGPROF     28) SIGWINCH    29) SIGIO       30) SIGPWR
+31) SIGSYS      34) SIGRTMIN    35) SIGRTMIN+1  36) SIGRTMIN+2  37) SIGRTMIN+3
+38) SIGRTMIN+4  39) SIGRTMIN+5  40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+8
+43) SIGRTMIN+9  44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12 47) SIGRTMIN+13
+48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14 51) SIGRTMAX-13 52) SIGRTMAX-12
+53) SIGRTMAX-11 54) SIGRTMAX-10 55) SIGRTMAX-9  56) SIGRTMAX-8  57) SIGRTMAX-7
+58) SIGRTMAX-6  59) SIGRTMAX-5  60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2
+63) SIGRTMAX-1  64) SIGRTMAX
+~~~~
+
+## Compile signalhandler
+~~~~
+$ ls
+makefile  signalhandler.c
+$ cat makefile
+CC=gcc
+signalhandler: signalhandler.c
+        $(CC) -o signalhandler signalhandler.c
+$ make
+gcc -o signalhandler signalhandler.c
+$ ls
+makefile  signalhandler  signalhandler.c
+~~~~
+
+## Ctrl-C / SIGNIT - 2
+~~~~
+$ ./signalhandler
+
+PID[8350] parent(29075) waiting for signals, ready...
+^CReceived Signal[2]....
+~~~~
+
+## SIGINT - 2
+### Session 1
+~~~~
+$ ps -ef|grep 8350
+ahbaidg   8350 29075  0 14:39 pts/2    00:00:00 ./signalhandler
+ahbaidg   8388  6260  0 14:41 pts/8    00:00:00 grep --color=auto 8350
+$ sleep 3; kill -SIGINT 8350
+~~~~
+### Session 2
+~~~~
+Received Signal[2]....
+Hangup
+~~~~
+
+## SIGKILL - 9
+### Session 1
+~~~~
+$ ./signalhandler
+
+PID[8493] parent(29075) waiting for signals, ready...
+Killed
+$ 
+~~~~
+### Session 2
+~~~~
+$ ps -ef|grep signalhandler | grep -v grep
+ahbaidg   8493 29075  0 14:45 pts/2    00:00:00 ./signalhandler
+$ kill -SIGKILL 8493
+~~~~
+
+## SIGHUP - 1
+### Session 1
+~~~~
+$ ./signalhandler
+
+PID[8729] parent(8710) waiting for signals, ready...
+Hangup
+$ 
+~~~~
+### Session 2
+~~~~
+$ ps -ef|grep signalhandler | grep -v grep
+ahbaidg   8729  8710  0 14:55 pts/9    00:00:00 ./signalhandler
+$ sleep 3; kill -SIGHUP 8729
+~~~~
+
+## SIGHUP - 1
+### Session 1
+~~~~
+$ ./signalhandler
+
+$ 
+~~~~
+### Session 2
+~~~~
+~~~~
+
+## SIGHUP - 1
+### Session 1
+~~~~
+$ ./signalhandler
+
+$ 
+~~~~
+### Session 2
+~~~~
+~~~~
