@@ -1,7 +1,14 @@
+// Author: Ahbaid Gaffoor
+// Date:   23 April 2008
+// File:   shmget.c
+// Use:    Test Shared Memory Allocation
+
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <stdio.h>
+#include <signal.h>
+#include <unistd.h>
 
 
 /* 1M = 1048576 */
@@ -11,6 +18,7 @@
 
 int main() {
 
+  printf("\nProcess Info: PID[%d] PPID[%d]\n",getpid(),getppid());
   printf("Huge Pages test with %d Byte Segment\n",SHMSZ);
 
   /*
@@ -18,8 +26,7 @@ int main() {
   * key_t shmkey = 3514;  dba
   * key_t shmkey = 5678;
   */
-  key_t shmkey = 3514;
-
+  key_t shmkey = 43805 ;
 
   /*
   * int shmflags = SHM_HUGETLB;
@@ -28,22 +35,16 @@ int main() {
   */
   int shmflags = SHM_HUGETLB|IPC_CREAT|SHM_R|SHM_W;
 
-
   /* Grab a shared memory segment */
-
   int shmid;
-
   if ((shmid = shmget(shmkey, SHMSZ, shmflags )) == -1) {
      perror("shmget");
   } else {
      printf("shmget returned %d\n",shmid);
   }
 
-
-  /* Now attach to the segment */
-
+  /* Attach to the segment */
   char *shmseg;
-
   if ((shmseg = shmat(shmid, NULL, 0)) == (char *) -1) {
      perror("shmat");
   } else {
