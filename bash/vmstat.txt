@@ -16,3 +16,4 @@ us - user CPU usage in %
 sy - kernel CPU usage in %
 id - CPU idle %
 wa - CPU IO wait %
+st - CPU stolen by VM neighbor
