@@ -1,0 +1,18 @@
+vmstat columns
+==============
+r - processes waiting to run but are held up by the CPU
+b - processes sleeping (waiting for IO)
+swpd - total swap used (in KB)
+free - total free memory
+buff - total buffer memory
+cache - total disk cache memory usage
+si - memory swapped in from disk (in KB/sec)
+so - memory swapped out to disk (in KB/sec)
+bi - blocks read in from IO devices (blocks per sec)
+bo - blocks written to IO devices (blocks per sec)
+in - interrupts per second
+cs - context switches per second
+us - user CPU usage in %
+sy - kernel CPU usage in %
+id - CPU idle %
+wa - CPU IO wait %
